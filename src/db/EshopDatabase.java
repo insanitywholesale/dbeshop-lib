@@ -17,10 +17,6 @@ public class EshopDatabase {
     private Connection dbConnection = null;
     private Statement statement = null;
     private int userID = -1;
-    private String createTablesQuery = "";
-    private String createAuditTablesQuery = "";
-    private String createAuditTriggersQuery = "";
-    private String createStoredProceduresQuery = "";
     private final boolean isWindows = System.getProperty("os.name").startsWith("Windows");
     private String[] sqlFileNames = {"eshop-tables.sql", "eshop-audittables.sql", "eshop-audittriggers.sql", "eshop-operations.sql"};
 
