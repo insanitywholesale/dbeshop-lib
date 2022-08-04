@@ -25,6 +25,7 @@ public class EshopDatabase {
             Class.forName(driverClassName);
         } catch (ClassNotFoundException ex) {
             System.err.println("driver load exception: " + ex);
+			return;
         }
         try {
             //Establish connection
@@ -33,7 +34,9 @@ public class EshopDatabase {
             statement = dbConnection.createStatement();
         } catch (SQLException ex) {
             System.err.println("Error when trying to connect to database at " + url + ": " + ex);
+			return;
         }
+
 
         for (String sqlFileName : sqlFileNames) {
             runSQLFromFile(sqlFileName);
@@ -46,20 +49,26 @@ public class EshopDatabase {
     }
 
     private void runSQLFromFile(String fileName) {
+		if (fileName.equals("")) {
+			return;
+		}
         String query;
         try {
             String sql;
             if (isWindows) {
                 sql = ((this.getClass()).getResource(fileName)).getPath().substring(1);
             } else {
-                sql = ((this.getClass()).getResource(fileName)).getPath();
+                sql = (this.getClass().getResource("/" + fileName)).getPath();
             }
             Path path = Path.of(sql);
             query = Files.readString(path);
+        } catch (NullPointerException ex) {
+            System.err.println("Error trying to load " + fileName + ": " + ex);
+			return;
         } catch (IOException ex) {
             System.err.println("Error trying to load " + fileName + ": " + ex);
             return;
-        }
+		}
         try {
             //Create base tables
             statement.execute(query);

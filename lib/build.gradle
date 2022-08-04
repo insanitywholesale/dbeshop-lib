@@ -17,6 +17,9 @@ repositories {
 }
 
 dependencies {
+	// Add postgres JDBC library
+	runtimeOnly 'org.postgresql:postgresql:42.4.1'
+
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
@@ -31,3 +34,4 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
