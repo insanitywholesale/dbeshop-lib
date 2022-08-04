@@ -16,7 +16,6 @@ public class EshopDatabase {
     private String passwd = "Apasswd";
     private Connection dbConnection = null;
     private Statement statement = null;
-    private int userID = -1;
     private final boolean isWindows = System.getProperty("os.name").startsWith("Windows");
     private String[] sqlFileNames = {"eshop-tables.sql", "eshop-audittables.sql", "eshop-audittriggers.sql", "eshop-operations.sql"};
 
@@ -47,6 +46,7 @@ public class EshopDatabase {
     }
 
     private void runSQLFromFile(String fileName) {
+        String query;
         try {
             String sql;
             if (isWindows) {
@@ -55,13 +55,14 @@ public class EshopDatabase {
                 sql = ((this.getClass()).getResource(fileName)).getPath();
             }
             Path path = Path.of(sql);
-            createTablesQuery = Files.readString(path);
+            query = Files.readString(path);
         } catch (IOException ex) {
             System.err.println("Error trying to load " + fileName + ": " + ex);
+            return;
         }
         try {
             //Create base tables
-            statement.execute(createTablesQuery);
+            statement.execute(query);
         } catch (SQLException ex) {
             System.err.println("Error when running SQL in " + fileName + ": " + ex);
         }
