@@ -80,6 +80,27 @@ public class EshopDatabase {
 
 	//--                                                  (country  city     zipcode  addr1    addr2    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
+	public String addAddress(String country, String city, String zipcode, String address1, String phone) {
+		try {
+		    ResultSet rs = statement.executeQuery("SELECT add_address_get_addressid("
+				+ " '" + country + "',"
+				+ " '" + city + "',"
+				+ " '" + zipcode + "',"
+				+ " '" + address1 + "',"
+				+ " '" + address2 + "',"
+				+ " '" + phone + "'"
+			+ ") as ADDRESSID;");
+			while (rs.next()) {
+				String aid = rs.getString("ADDRESSID");
+				return aid;
+			}
+		} catch (SQLException ex) {
+			//TODO: properly handle exception
+			System.err.println("Exception when running addAddress: " + ex);
+		}
+		return "";
+    }
+
 	//--                                    (country  city     zipcode  addr1    addr2    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address(varchar, varchar, varchar, varchar, varchar, varchar, varchar) RETURNS void AS $$
 	//--                                                             (country  city     zipcode  addr1    addr2    phone1 )
