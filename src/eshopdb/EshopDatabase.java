@@ -52,7 +52,7 @@ public class EshopDatabase {
 		if (fileName.equals("")) {
 			return;
 		}
-
+		
 		String query;
 		try {
 			String sql;
