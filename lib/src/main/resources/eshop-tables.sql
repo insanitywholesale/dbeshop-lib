@@ -45,7 +45,7 @@ CREATE TABLE if not exists Products (
     ProductDescription VARCHAR NOT NULL DEFAULT '',
     ProductVersion FLOAT NOT NULL DEFAULT 1.0,
     ProductWeight FLOAT NOT NULL DEFAULT 0.0,
-    ProductWeightClass SMALLINT,
+    ProductWeightClass SMALLINT DEFAULT 0,
     ProductOnSale BOOLEAN NOT NULL DEFAULT FALSE
 );
 
