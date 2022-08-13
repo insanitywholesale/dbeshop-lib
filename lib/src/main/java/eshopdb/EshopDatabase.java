@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -80,7 +81,7 @@ public class EshopDatabase {
 
 	//--                                                  (country  city     zipcode  addr1    addr2    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
-	public String addAddress(String country, String city, String zipcode, String address1, String phone) {
+	public String addAddress(String country, String city, String zipcode, String address1, String address2, String phone1, String phone2) {
 		try {
 		    ResultSet rs = statement.executeQuery("SELECT add_address_get_addressid("
 				+ " '" + country + "',"
@@ -88,7 +89,8 @@ public class EshopDatabase {
 				+ " '" + zipcode + "',"
 				+ " '" + address1 + "',"
 				+ " '" + address2 + "',"
-				+ " '" + phone + "'"
+				+ " '" + phone1 + "',"
+				+ " '" + phone2 + "'"
 			+ ") as ADDRESSID;");
 			while (rs.next()) {
 				String aid = rs.getString("ADDRESSID");
