@@ -8,3 +8,4 @@ not aiming for perfect but could be better in these ways:
 	Logger.getLogger(EshopDatabase.class.getName()).log(Level.SEVERE, null, ex);
 	```
 - Check todos in code
+- Find way to store product images in database
