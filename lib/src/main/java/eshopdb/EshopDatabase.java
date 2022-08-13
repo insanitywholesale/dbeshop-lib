@@ -81,9 +81,9 @@ public class EshopDatabase {
 
 	//--                                                  (country  city     zipcode  addr1    addr2    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
-	public String addAddress(String country, String city, String zipcode, String address1, String address2, String phone1, String phone2) {
+	public String addAddressGetAddressID(String country, String city, String zipcode, String address1, String address2, String phone1, String phone2) {
 		try {
-		    ResultSet rs = statement.executeQuery("SELECT add_address_get_addressid("
+			ResultSet rs = statement.executeQuery("SELECT add_address_get_addressid("
 				+ " '" + country + "',"
 				+ " '" + city + "',"
 				+ " '" + zipcode + "',"
@@ -97,14 +97,29 @@ public class EshopDatabase {
 				return aid;
 			}
 		} catch (SQLException ex) {
-			//TODO: properly handle exception
-			System.err.println("Exception when running addAddress: " + ex);
+			System.err.println("Exception when running addAddressGetAddressID: " + ex);
 		}
 		return "";
     }
 
 	//--                                    (country  city     zipcode  addr1    addr2    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address(varchar, varchar, varchar, varchar, varchar, varchar, varchar) RETURNS void AS $$
+	public void addAddress(String country, String city, String zipcode, String address1, String address2, String phone1, String phone2) {
+		try {
+			ResultSet rs = statement.executeQuery("SELECT add_address("
+				+ " '" + country + "',"
+				+ " '" + city + "',"
+				+ " '" + zipcode + "',"
+				+ " '" + address1 + "',"
+				+ " '" + address2 + "',"
+				+ " '" + phone1 + "',"
+				+ " '" + phone2 + "'"
+			+ ");");
+		} catch (SQLException ex) {
+			System.err.println("Exception when running addAddress: " + ex);
+		}
+    }
+
 	//--                                                             (country  city     zipcode  addr1    addr2    phone1 )
 	//CREATE OR REPLACE FUNCTION add_address_with_addr2_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
 	//--                                               (country  city     zipcode  addr1    addr2    phone1 )
