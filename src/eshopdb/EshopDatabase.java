@@ -122,8 +122,43 @@ public class EshopDatabase {
 
 	//--                                                             (country  city     zipcode  addr1    addr2    phone1 )
 	//CREATE OR REPLACE FUNCTION add_address_with_addr2_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
+	public String addAddressWithAddress2GetAddressID(String country, String city, String zipcode, String address1, String address2, String phone1) {
+		try {
+			ResultSet rs = statement.executeQuery("SELECT add_address_with_addr2_get_addressid("
+				+ " '" + country + "',"
+				+ " '" + city + "',"
+				+ " '" + zipcode + "',"
+				+ " '" + address1 + "',"
+				+ " '" + address2 + "',"
+				+ " '" + phone1 + "'"
+			+ ") as ADDRESSID;");
+			while (rs.next()) {
+				String aid = rs.getString("ADDRESSID");
+				return aid;
+			}
+		} catch (SQLException ex) {
+			System.err.println("Exception when running addAddressWithAddress2GetAddressID: " + ex);
+		}
+		return "";
+    }
+
 	//--                                               (country  city     zipcode  addr1    addr2    phone1 )
 	//CREATE OR REPLACE FUNCTION add_address_with_addr2(varchar, varchar, varchar, varchar, varchar, varchar) RETURNS void AS $$
+	public String addAddressWithAddress2(String country, String city, String zipcode, String address1, String address2, String phone1) {
+		try {
+			ResultSet rs = statement.executeQuery("SELECT add_address_with_addr2("
+				+ " '" + country + "',"
+				+ " '" + city + "',"
+				+ " '" + zipcode + "',"
+				+ " '" + address1 + "',"
+				+ " '" + address2 + "',"
+				+ " '" + phone1 + "'"
+			+ ");");
+		} catch (SQLException ex) {
+			System.err.println("Exception when running addAddressWithAddress2: " + ex);
+		}
+    }
+
 	//--                                                              (country  city     zipcode  addr1    phone1   phone2 )
 	//CREATE OR REPLACE FUNCTION add_address_with_phone2_get_addressid(varchar, varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
 	//--                                                (country  city     zipcode  addr1    phone1   phone2 )
