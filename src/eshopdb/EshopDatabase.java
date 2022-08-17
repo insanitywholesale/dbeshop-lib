@@ -144,7 +144,7 @@ public class EshopDatabase {
 
 	//--                                               (country  city     zipcode  addr1    addr2    phone1 )
 	//CREATE OR REPLACE FUNCTION add_address_with_addr2(varchar, varchar, varchar, varchar, varchar, varchar) RETURNS void AS $$
-	public String addAddressWithAddress2(String country, String city, String zipcode, String address1, String address2, String phone1) {
+	public void addAddressWithAddress2(String country, String city, String zipcode, String address1, String address2, String phone1) {
 		try {
 			ResultSet rs = statement.executeQuery("SELECT add_address_with_addr2("
 				+ " '" + country + "',"
