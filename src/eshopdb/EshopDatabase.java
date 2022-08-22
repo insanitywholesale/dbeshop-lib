@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class EshopDatabase {
 
@@ -241,6 +242,28 @@ public class EshopDatabase {
 	}
 
 	//CREATE OR REPLACE FUNCTION get_all_addresses() RETURNS SETOF Addresses AS $$
+	public ArrayList<Address> getAllAddresses() {
+		ArrayList<Address> addresses = new ArrayList<Address>();
+		try {
+			ResultSet rs = statement.executeQuery("SELECT get_all_addresses() AS ALLADDR;");
+			while (rs.next()) {
+				String res = rs.getString("ALLADDR");
+				String[] a = res.substring(1, res.length() - 1).split(",");
+				try {
+					int addrid = Integer.parseInt(a[0]);
+					Address addr = new Address(addrid, a[1], a[2], a[3], a[4], a[5], a[6]);
+					addresses.add(addr);
+				} catch (NumberFormatException ex) {
+					System.err.println("Exception when running getAllAddresses: " + ex);
+				}
+			}
+		} catch (SQLException ex) {
+			System.err.println("Exception when running getAllAddresses: " + ex);
+			return null;
+		}
+		return addresses;
+	}
+
 	//--                                            (nick     email    passwd   fname    lname  )
 	//CREATE OR REPLACE FUNCTION add_user_get_userid(varchar, varchar, varchar, varchar, varchar) RETURNS INTEGER AS $$
 	//--                                 (nick     email    passwd   fname    lname  )
